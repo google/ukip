@@ -1,24 +1,24 @@
-# UKIP: USB Keystroke Injection Protection
+# USB Keystroke Injection Protection
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Overview
-UKIP is a daemon for blocking USB keystroke injection devices on Linux systems.
+This tool is a daemon for blocking USB keystroke injection devices on Linux systems.
 
-UKIP supports two different modes of operation: **monitoring** and **hardening**. In
+It supports two different modes of operation: **monitoring** and **hardening**. In
 monitor mode, information about a potentially attacking USB device is collected
 and logged to syslog. In hardening mode, the attacking USB device is ejected
 from the operating system by unbinding the driver.
 
 ### Installation Prerequisites
-The installation of UKIP is mainly handled by `setup.sh`, however, there are some prerequisites 
+The installation is mainly handled by `setup.sh`, however, there are some prerequisites 
 that need to be adjusted before running the script:
 
 1) Install Python3.7 or later, virtualenv (`python3-venv`) and PIP3 (`python3-pip`) if not already 
 available on the system.
 
 1) Adjust the `KEYSTROKE_WINDOW` variable on top of the `setup.sh` file. This is the 
-number of keystrokes UKIP looks at to determine whether its dealing with an attack or not. 
-The lower the number, the higher the false positives will be (e.g., if the number is 2, UKIP 
+number of keystrokes the daemon looks at to determine whether its dealing with an attack or not. 
+The lower the number, the higher the false positives will be (e.g., if the number is 2, the tool 
 looks at only 1 interarrival time between those two keystrokes to determine whether it's an 
 attack or not. Obviously, users sometimes hit two keys almost at the same time, which leads 
 to the aforementioned false positive). Based on our internal observations, 5 is a value that 
@@ -31,20 +31,20 @@ The higher the number, the more false-positives will arise (normal typing speed 
 classified as malicious), where more false-negatives will arise with a lower number (even very 
 fast typing attacks will be classified as benign). That said, the preset `50000` after initial 
 installation is a safe default but should be changed to a number reflecting the typing speed of 
-the user using UKIP.
+the user using the tool.
 
-1) Set the mode UKIP should run in by adjusting the `RUN_MODE` variable on top of the 
+1) Set the mode the daemon should run in by adjusting the `RUN_MODE` variable on top of the 
 `setup.sh` file. Setting it to `MONITOR` will send information about the USB device to a logging 
 instance without blocking the device. Setting the variable to `HARDENING` will remove an 
 attacking device from the system by unbinding the driver.
 
 1) Adjust the `DEBIAN` variable on top of the `setup.sh` file. This variable indicates 
-whether the system UKIP is installed on is a Debian derivate or something else. This determination 
+whether the system the tool is installed on is a Debian derivate or something else. This determination 
 is important for the installation of the systemd service later on (the path, the service will be 
 copied to).
 
 1) Adjust the allowlist file in `data/allowlist`. This file will be installed to `/etc/ukip/` 
-on your system and taken by UKIP as source of truth for allowed devices, in case a device is 
+on your system and taken as source of truth for allowed devices, in case a device is 
 exceeding the preset `ABNORMAL_TYPING` speed. As described in the file, the allowed device 
 can be narrowed down with a specific set of characters to allow to even more minimize the attack 
 surface. For example, if your keyboard uses a macro that sends `rm -rf /` allow those characters, 
@@ -67,7 +67,7 @@ them system wide:
 chmod +x setup.sh
 ./setup.sh
 ```
-That's it: UKIP will be automatically started at boot time.  
+That's it: The daemon will be automatically started at boot time.  
 
 For interaction with the service, the systemd interface is probably the most convenient one.
 To check the status:
@@ -87,16 +87,16 @@ sudo systemctl disable ukip.service
 
 ## Terms of use
 
-### UKIP
+### USB Keystroke Injection Protection
 This project provides code that can be run on Linux systems to harden those systems against keystroke injection attacks, delivered via USB.
 The terms of use apply to data provided by Google or implicitly through code in this repository.
 
 ```
-UKIP hereby grants you a perpetual, worldwide, non-exclusive,
+This tool hereby grants you a perpetual, worldwide, non-exclusive,
 no-charge, royalty-free, irrevocable copyright license to reproduce, prepare
 derivative works of, publicly display, publicly perform, sublicense, and
-distribute code in this repository related to UKIP. Any copy you make for
-such purposes is authorized provided that you reproduce UKIP's copyright
+distribute code in this repository related to this tool. Any copy you make for
+such purposes is authorized provided that you reproduce this tool's copyright
 designation and this license in any such copy.
 ```
 
