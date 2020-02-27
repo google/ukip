@@ -1,0 +1,20 @@
+# This is the allowlist for UKIP: USB Keystroke Injection Protection.
+#
+# Devices are added manually by a user in the following form, one rule per line:
+# <product ID in hex>:<vendor ID in hex> <allowed characters, comma separated>
+# An example for the Yubikey:
+0x10:0x1050 c,b,d,e,f,g,h,i,j,k,l,n,r,t,u,v
+
+# If every character should be allowed, the product ID and vendor ID, followed
+# by the keyword any is sufficient.
+#
+# The following would be an example for the product ID 0x1234 and the vendor ID
+# 0x1337 (without the starting hashtag):
+# 0x1234:0x1337 any
+
+# If no character should be allowed, the approach is similar, but the keyword is
+# none.
+#
+# The following would be an example for the product ID 0x1337 and the vendor ID
+# 0x1234 (without the starting hashtag):
+# 0x1337:0x1234 none
