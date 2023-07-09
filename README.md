@@ -13,7 +13,7 @@ from the operating system by unbinding the driver.
 The installation is mainly handled by `setup.sh`, however, there are some prerequisites 
 that need to be adjusted before running the script:
 
-1) Install Python3.7 or later, virtualenv (`python3-venv`) and PIP3 (`python3-pip`) if not already 
+1) Install Python3.7 or later, python dev package, virtualenv (`python3-venv`) and PIP3 (`python3-pip`) if not already 
 available on the system.
 
 1) Adjust the `KEYSTROKE_WINDOW` variable on top of the `setup.sh` file. This is the 
